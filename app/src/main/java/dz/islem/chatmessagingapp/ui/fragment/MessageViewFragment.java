@@ -9,12 +9,16 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import dz.islem.chatmessagingapp.R;
 import dz.islem.chatmessagingapp.adapter.MessageListAdapter;
 import dz.islem.chatmessagingapp.interfaces.IMessageView;
@@ -23,11 +27,11 @@ import dz.islem.chatmessagingapp.presenter.MessagePresenter;
 
 public class MessageViewFragment extends Fragment implements IMessageView , TextView.OnEditorActionListener {
     private View mView;
-    private RecyclerView mRecyclerView;
+    @BindView(R.id.recyclerview_message_list) public RecyclerView mRecyclerView;
+    @BindView(R.id.edittext_chatbox) public EditText mEditView;
     private MessageListAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
     private MessagePresenter mMessagePresenter;
-    private EditText mEditView;
     private boolean sender = true;
 
 
@@ -45,15 +49,14 @@ public class MessageViewFragment extends Fragment implements IMessageView , Text
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.message_fragment, container, false);
-        initView();
-        setupRecycler();
-
+        ButterKnife.bind(this,mView);
         return mView;
     }
 
-    private void initView(){
-        mRecyclerView = mView.findViewById(R.id.recyclerview_message_list);
-        mEditView = mView.findViewById(R.id.edittext_chatbox);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setupRecycler();
         mEditView.setOnEditorActionListener(this);
     }
 

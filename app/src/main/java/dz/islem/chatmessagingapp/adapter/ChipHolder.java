@@ -11,6 +11,8 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipDrawable;
 import com.google.android.material.chip.ChipGroup;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import dz.islem.chatmessagingapp.R;
 import dz.islem.chatmessagingapp.model.MessageModel;
 
@@ -18,14 +20,13 @@ public class ChipHolder extends RecyclerView.ViewHolder {
 
     public TextView messageText;
     public View mItemView;
-    ChipGroup mChipGroup;
+    @BindView(R.id.chipGroup) public ChipGroup mChipGroup;
 
 
     public ChipHolder(@NonNull View itemView) {
         super(itemView);
         mItemView = itemView;
-        //messageText = itemView.findViewById(R.id.text_message_body);
-        mChipGroup =mItemView.findViewById(R.id.chipGroup);
+        ButterKnife.bind(this,mItemView);
 
         mChipGroup.setOnCheckedChangeListener(new ChipGroup.OnCheckedChangeListener() {
             @Override
