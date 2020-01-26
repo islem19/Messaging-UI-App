@@ -1,10 +1,11 @@
-package dz.islem.chatmessagingapp;
+package dz.islem.chatmessagingapp.ui;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import dz.islem.chatmessagingapp.fragment.MessageViewFragment;
+import dz.islem.chatmessagingapp.R;
+import dz.islem.chatmessagingapp.ui.fragment.MessageViewFragment;
 
 public class App extends AppCompatActivity {
 

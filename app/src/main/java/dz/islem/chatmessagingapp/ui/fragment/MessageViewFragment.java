@@ -1,4 +1,4 @@
-package dz.islem.chatmessagingapp.fragment;
+package dz.islem.chatmessagingapp.ui.fragment;
 
 import android.os.Bundle;
 import android.view.KeyEvent;
