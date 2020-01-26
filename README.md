@@ -10,7 +10,9 @@ width="250"
 [<img src="screenshots/screenshot2.png" align="center"
 width="250"
     hspace="10" vspace="10">](screenshots/screenshot2.png)
-
+[<img src="screenshots/screenshot3.png" align="center"
+width="250"
+    hspace="10" vspace="10">](screenshots/screenshot3.png)
     
 ## Setup
 Clone this repository and import into **Android Studio**
