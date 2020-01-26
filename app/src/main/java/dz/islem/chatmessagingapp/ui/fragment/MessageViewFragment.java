@@ -19,13 +19,14 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnEditorAction;
 import dz.islem.chatmessagingapp.R;
 import dz.islem.chatmessagingapp.adapter.MessageListAdapter;
 import dz.islem.chatmessagingapp.interfaces.IMessageView;
 import dz.islem.chatmessagingapp.model.MessageModel;
 import dz.islem.chatmessagingapp.presenter.MessagePresenter;
 
-public class MessageViewFragment extends Fragment implements IMessageView , TextView.OnEditorActionListener {
+public class MessageViewFragment extends Fragment implements IMessageView {
     private View mView;
     @BindView(R.id.recyclerview_message_list) public RecyclerView mRecyclerView;
     @BindView(R.id.edittext_chatbox) public EditText mEditView;
@@ -57,7 +58,7 @@ public class MessageViewFragment extends Fragment implements IMessageView , Text
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setupRecycler();
-        mEditView.setOnEditorActionListener(this);
+        //mEditView.setOnEditorActionListener(this);
     }
 
     private void setupRecycler(){
@@ -80,7 +81,7 @@ public class MessageViewFragment extends Fragment implements IMessageView , Text
     }
 
 
-    @Override
+    @OnEditorAction(R.id.edittext_chatbox)
     public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
         if(actionId == EditorInfo.IME_ACTION_DONE){
             if ( mEditView.getText().length() > 0 ) {

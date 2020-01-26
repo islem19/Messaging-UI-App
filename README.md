@@ -23,6 +23,7 @@ git clone https://github.com/islem19/Messaging-UI-App.git
 ## Libraries and Dependencies
 - [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview)
 - Material Design -[Chips](https://material.io/develop/android/components)-
+- [Butter Knife](https://jakewharton.github.io/butterknife/)
 
 
 ## Maintainers
