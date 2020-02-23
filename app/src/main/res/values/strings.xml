@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Messaging UI App</string>
     <string name="bot_name">Android</string>
+    <string name="no_internet">No internet !</string>
+    <string name="retry">Retry</string>
 </resources>

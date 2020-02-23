@@ -11,11 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dz.islem.chatmessagingapp.R;
+import dz.islem.chatmessagingapp.model.AnswerModel;
 import dz.islem.chatmessagingapp.model.MessageModel;
-
-import static dz.islem.chatmessagingapp.util.Constants.MESSAGE_CHIP;
-import static dz.islem.chatmessagingapp.util.Constants.MESSAGE_RECEIVED;
-import static dz.islem.chatmessagingapp.util.Constants.MESSAGE_SENT;
+import dz.islem.chatmessagingapp.model.QuestionModel;
 
 public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -27,24 +25,34 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View mView = null;
-
-        if ( viewType == MESSAGE_SENT )
-            mView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message_sent, parent, false);
-        else if ( viewType == MESSAGE_RECEIVED )
-            mView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message_received, parent, false);
-        else if (viewType == MESSAGE_CHIP)
-            mView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message_chip, parent, false);
-        return (viewType == MESSAGE_CHIP) ? new ChipHolder(mView) : new MessageHolder(mView);
+        // return a new ViewHolder based on the viewType
+        // View Type is : TYPE_QUESTION => return new QuestionHolder
+        // View Type is : TYPE_ANSWER => return new AnswerHolder
+        switch (viewType){
+            case MessageModel.TYPE_QUESTION:
+                mView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message_sent, parent, false);
+                return new QuestionHolder(mView);
+            case MessageModel.TYPE_ANSWER:
+            default:
+                mView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message_received, parent, false);
+                return new AnswerHolder(mView);
+        }
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        // get the message model from the list
         MessageModel message = mListMessages.get(position);
-
-        if ( holder.getItemViewType() == MESSAGE_SENT || holder.getItemViewType() == MESSAGE_RECEIVED )
-            ((MessageHolder) holder).bind(message);
-        else if ( holder.getItemViewType() == MESSAGE_CHIP )
-            ((ChipHolder) holder).bind(message);
+        // bind the model with the viewholder by ViewType
+        switch (holder.getItemViewType()){
+            case MessageModel.TYPE_QUESTION:
+                ((QuestionHolder) holder).bind((QuestionModel) message);
+                break;
+            case MessageModel.TYPE_ANSWER:
+            default:
+                ((AnswerHolder) holder).bind( (AnswerModel) message);
+                break;
+        }
     }
 
     @Override
@@ -54,7 +62,7 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemViewType(int position){
-        return mListMessages.get(position).getMessageType();
+        return mListMessages.get(position).getType();
     }
 
     public void addData(MessageModel message){
@@ -62,10 +70,12 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         notifyDataSetChanged();
     }
 
-    public void initData(List<MessageModel> mListMessages){
-        this.mListMessages = mListMessages;
+    public void initData(List<? extends MessageModel> mListMessages){
+        if (this.mListMessages == null){
+            this.mListMessages = new ArrayList<>();
+        }
+        this.mListMessages.addAll(mListMessages);
         notifyDataSetChanged();
     }
-
 
 }

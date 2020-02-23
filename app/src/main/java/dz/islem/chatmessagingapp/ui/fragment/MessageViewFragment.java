@@ -24,6 +24,7 @@ import dz.islem.chatmessagingapp.R;
 import dz.islem.chatmessagingapp.adapter.MessageListAdapter;
 import dz.islem.chatmessagingapp.interfaces.IMessageView;
 import dz.islem.chatmessagingapp.model.MessageModel;
+import dz.islem.chatmessagingapp.model.QuestionModel;
 import dz.islem.chatmessagingapp.presenter.MessagePresenter;
 
 public class MessageViewFragment extends Fragment implements IMessageView {
@@ -85,12 +86,7 @@ public class MessageViewFragment extends Fragment implements IMessageView {
     public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
         if(actionId == EditorInfo.IME_ACTION_DONE){
             if ( mEditView.getText().length() > 0 ) {
-                MessageModel message = new MessageModel(String.valueOf(mEditView.getText()),System.currentTimeMillis());
-                if (sender)
-                    message.setMessageType(1);
-                else
-                    message.setMessageType(2);
-                sender=!sender;
+                MessageModel message = new QuestionModel(String.valueOf(mEditView.getText()),System.currentTimeMillis());
                 mMessagePresenter.addData(message);
                 mEditView.getText().clear();
                 mRecyclerView.scrollToPosition(mRecyclerView.getAdapter().getItemCount()-1);
